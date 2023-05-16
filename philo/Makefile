@@ -8,14 +8,16 @@ SRCS		=	philo.c \
 				ft_isint.c \
 				utils.c
 
-OBJS		=	$(addprefix ${BINDIR}, ${SRCS:.c=.o})
+OBJS		=	$(addprefix ${BIN_DIR}, ${SRCS:.c=.o})
 
-${BINDIR}%.o: ${SRCS_DIR}%.c
+${BIN_DIR}%.o: ${SRCS_DIR}%.c
 	@${CC} ${CFLAGS} -c $< -o $@
 
 all: $(BIN_DIR) $(NAME)
+	@echo "philo compiled"
 
 $(NAME): $(OBJS)
+	@echo "philo compiling"
 	@$(CC) $(OBJS) -o $(NAME)
 
 $(BIN_DIR):

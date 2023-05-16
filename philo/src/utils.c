@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 10:47:24 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/05/16 10:47:40 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/05/16 13:19:25 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,10 @@ size_t	ft_strlen(const char *s)
 	while (s[i])
 		i++;
 	return (i);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	if (s)
+		memset(s, 0, n);
 }
