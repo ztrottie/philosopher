@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/15 10:34:19 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/05/15 13:55:48 by ztrottie         ###   ########.fr       */
+/*   Created: 2023/05/15 23:43:41 by ztrottie          #+#    #+#             */
+/*   Updated: 2023/05/15 23:53:41 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/philo/philo.h"
+#ifndef PHILO_H
+# define PHILO_H
 
-int	main(int argc, char **argv)
-{
-	
-}
+# include "unistd.h"
+# include "stdio.h"
+
+int	args_checker(int argc, int argv);
+
+#endif
