@@ -3,7 +3,10 @@ NAME		=	philo
 BIN_DIR		=	bin/
 SRCS_DIR	=	src/
 
-SRCS		=	philo.c
+SRCS		=	philo.c \
+				error.c \
+				ft_isint.c \
+				utils.c
 
 OBJS		=	$(addprefix ${BINDIR}, ${SRCS:.c=.o})
 
