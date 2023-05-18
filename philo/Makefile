@@ -6,7 +6,8 @@ SRCS_DIR	=	src/
 SRCS		=	philo.c \
 				error.c \
 				ft_isint.c \
-				utils.c
+				utils.c \
+				ft_atoi.c
 
 OBJS		=	$(addprefix ${BIN_DIR}, ${SRCS:.c=.o})
 
