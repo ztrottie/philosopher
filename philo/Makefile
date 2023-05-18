@@ -19,7 +19,7 @@ all: $(BIN_DIR) $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "philo compiling"
-	@$(CC) $(OBJS) -o $(NAME)
+	@$(CC) -fsanitize=thread $(OBJS) -o $(NAME)
 
 $(BIN_DIR):
 	@mkdir -p bin

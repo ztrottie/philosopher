@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/15 23:48:38 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/05/18 11:57:36 by ztrottie         ###   ########.fr       */
+/*   Created: 2023/05/18 14:38:50 by ztrottie          #+#    #+#             */
+/*   Updated: 2023/05/18 14:39:23 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-int	args_checker(int argc, char **argv)
+void	init_fork(t_data *data)
 {
 	int	i;
-	if (argc > 6)
-		return (write(2, "Too many arguments!\n", 20), 1);
-	if (argc < 5)
-		return (write(2, "Not enough arguments!\n", 22), 1);
+
 	i = 0;
-	while (++i < argc)
-		if (ft_isint(argv[i]))
-			return (write(2, "all arguments should be positive integers\n", 42), 1);
-	return (0);
+	data->fork = malloc(data->nb_philo * sizeof(t_fork));
+	while (i < data->nb_philo)
+	{
+		data->fork[i].use = 0;
+		pthread_mutex_init(&data->fork[i].lock, NULL);
+		i++;
+	}
 }

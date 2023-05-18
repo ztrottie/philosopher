@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:43:41 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/05/17 23:18:59 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/05/18 14:39:33 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,34 @@
 # include <stdbool.h>
 # include <stdlib.h>
 
+typedef struct s_fork
+{
+	pthread_mutex_t	lock;
+	int				use;
+}	t_fork;
+
+
 typedef struct s_philo
 {
-	pthread_t	thread;
+	pthread_t		thread;
+	int				nb;
+	useconds_t		time_die;
+	useconds_t		time_eat;
+	useconds_t		time_sleep;
+	int				nb_meal;
+	struct s_fork	left_fork;
+	struct s_fork	right_fork;
+	bool			meal_limit;
 }	t_philo;
 
 typedef struct	s_data
 {
 	struct s_philo	*philo;
-	pthread_mutex_t	mutex;
+	struct s_fork	*fork;
 	int				nb_philo;
-	int				time_die;
-	int				time_eat;
-	int				time_sleep;
+	useconds_t		time_die;
+	useconds_t		time_eat;
+	useconds_t		time_sleep;
 	int				nb_meal;
 	bool			meal_limit;
 }	t_data;
@@ -42,5 +57,6 @@ size_t	ft_strlen(const char *s);
 int		ft_isint(char *str);
 int		ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t n);
+void	init_fork(t_data *data);
 
 #endif
