@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:43:41 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/05/18 14:39:33 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/05/24 21:02:08 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include <unistd.h>
 # include <pthread.h>
-# include <stdio.h>
 # include <string.h>
+# include <stdio.h>
 # include <stdbool.h>
 # include <stdlib.h>
 
@@ -31,13 +31,14 @@ typedef struct s_philo
 {
 	pthread_t		thread;
 	int				nb;
-	useconds_t		time_die;
-	useconds_t		time_eat;
-	useconds_t		time_sleep;
+	int				time_die;
+	int				time_eat;
+	int				time_sleep;
 	int				nb_meal;
 	struct s_fork	left_fork;
 	struct s_fork	right_fork;
 	bool			meal_limit;
+	int				*died;
 }	t_philo;
 
 typedef struct	s_data
@@ -45,9 +46,9 @@ typedef struct	s_data
 	struct s_philo	*philo;
 	struct s_fork	*fork;
 	int				nb_philo;
-	useconds_t		time_die;
-	useconds_t		time_eat;
-	useconds_t		time_sleep;
+	int				time_die;
+	int				time_eat;
+	int				time_sleep;
 	int				nb_meal;
 	bool			meal_limit;
 }	t_data;
@@ -58,5 +59,7 @@ int		ft_isint(char *str);
 int		ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t n);
 void	init_fork(t_data *data);
+void	destroy_mutex(t_data *data);
+void	lauch_philo(t_data *data);
 
 #endif

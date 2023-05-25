@@ -7,7 +7,9 @@ SRCS		=	philo.c \
 				error.c \
 				ft_isint.c \
 				utils.c \
-				ft_atoi.c
+				ft_atoi.c \
+				fork.c \
+				launch.c
 
 OBJS		=	$(addprefix ${BIN_DIR}, ${SRCS:.c=.o})
 

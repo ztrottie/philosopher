@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 14:38:50 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/05/18 14:39:23 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/05/24 18:56:18 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,17 @@ void	init_fork(t_data *data)
 		pthread_mutex_init(&data->fork[i].lock, NULL);
 		i++;
 	}
+}
+
+void	destroy_mutex(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->nb_philo)
+	{
+		pthread_mutex_destroy(&data->fork[i].lock);
+		i++;
+	}
+	free(data->fork);
 }

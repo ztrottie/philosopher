@@ -6,25 +6,19 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:42:39 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/05/18 14:39:40 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/05/24 21:02:43 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-static void	*life_start(void *var)
-{
-	t_philo *philo;
-	
-	philo = (t_philo *)var;
-	return (NULL);
-}
-
 static void	init_philos(t_data *data)
 {
-	int	i;
+	int		i;
+	int		died;
 	
 	data->philo = malloc(data->nb_philo * sizeof(t_philo));
+	died = 0;
 	init_fork(data);
 	i = 0;
 	while (i < data->nb_philo)
@@ -33,8 +27,12 @@ static void	init_philos(t_data *data)
 		data->philo[i].time_eat = data->time_eat;
 		data->philo[i].time_sleep = data->time_sleep;
 		data->philo[i].nb = i + 1;
-		if (pthread_create(&data->philo[i].thread, NULL, &life_start, &data->philo[i]) != 0)
-			return ;
+		data->philo[i].died = &died;
+		if (i == 0)
+			data->philo[i].left_fork = data->fork[data->nb_philo - 1];
+		else
+			data->philo[i].left_fork = data->fork[i - 1];
+		data->philo[i].right_fork = data->fork[i];
 		i++;
 	}
 }
@@ -68,19 +66,6 @@ static void	init_data(t_data *data, int argc, char **argv)
 		data->meal_limit = false;
 }
 
-static void	destroy_mutex(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->nb_philo)
-	{
-		pthread_mutex_destroy(&data->fork[i].lock);
-		i++;
-	}
-	free(data->fork);
-}
-
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -89,6 +74,7 @@ int	main(int argc, char **argv)
 		return (1);
 	init_data(&data, argc, argv);
 	init_philos(&data);
+	lauch_philo(&data);
 	wait_philo(&data);
 	destroy_mutex(&data);
 	return (0);
