@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:43:41 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/05/24 21:02:08 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/05/26 12:51:25 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,39 +19,37 @@
 # include <stdio.h>
 # include <stdbool.h>
 # include <stdlib.h>
+# include <errno.h>
 
-typedef struct s_fork
-{
-	pthread_mutex_t	lock;
-	int				use;
-}	t_fork;
+# define FORK "has taken a fork"
+# define EAT "is eating"
+# define SLEEP "is sleeping"
+# define THINK "is thinking"
+# define DIED "died"
 
-
-typedef struct s_philo
-{
-	pthread_t		thread;
-	int				nb;
-	int				time_die;
-	int				time_eat;
-	int				time_sleep;
-	int				nb_meal;
-	struct s_fork	left_fork;
-	struct s_fork	right_fork;
-	bool			meal_limit;
-	int				*died;
-}	t_philo;
 
 typedef struct	s_data
 {
 	struct s_philo	*philo;
-	struct s_fork	*fork;
+	pthread_mutex_t	*fork;
 	int				nb_philo;
 	int				time_die;
 	int				time_eat;
 	int				time_sleep;
 	int				nb_meal;
+	int				died;
 	bool			meal_limit;
 }	t_data;
+
+typedef struct s_philo
+{
+	pthread_t		thread;
+	int				nb;
+	int				tt_die;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t *right_fork;
+	t_data			*data;
+}	t_philo;
 
 int		args_checker(int argc, char **argv);
 size_t	ft_strlen(const char *s);
