@@ -12,7 +12,8 @@ SRCS		=	philo.c \
 				utils.c \
 				ft_atoi.c \
 				fork.c \
-				life.c
+				life.c \
+				time.c
 
 OBJS		=	$(addprefix ${BIN_DIR}, ${SRCS:.c=.o})
 
