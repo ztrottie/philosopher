@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 21:01:10 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/05/26 17:14:21 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/05/26 22:00:35 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,12 @@
 
 static void	print_philo_state(t_philo *philo, char *state)
 {
-	printf("%6ld %3d %s\n", timestamp(philo), philo->nb, state);
+	long int ms;
+
+	pthread_mutex_lock(&philo->data->print);
+	ms = timestamp(philo->data->start_time);
+	printf("%6ld %3d %s\n", ms, philo->nb, state);
+	pthread_mutex_unlock(&philo->data->print);
 }
 
 static void	think_sleep(t_philo *philo)
@@ -45,6 +50,8 @@ static void	*life_start(void *var)
 	philo = (t_philo *)var;
 	if (philo->data->started == false)
 		gettimeofday(&philo->data->start_time, NULL);
+	if (philo->nb & 1)
+		usleep(philo->data->time_eat * 1000);
 	while (philo->data->died != true)
 	{
 		start_eat(philo);
@@ -62,14 +69,6 @@ void	lauch_philo(t_data *data)
 	{
 		if (pthread_create(&data->philo[i].thread, NULL, &life_start, &data->philo[i]) != 0)
 			return ;
-		i += 2;
-	}
-	i = 1;
-	usleep(data->time_eat * 1000);
-	while (i < data->nb_philo)
-	{
-		if (pthread_create(&data->philo[i].thread, NULL, &life_start, &data->philo[i]) != 0)
-			return ;
-		i += 2;
+		i++;
 	}
 }

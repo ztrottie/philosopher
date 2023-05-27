@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:42:39 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/05/26 16:21:52 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/05/26 22:10:35 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static void	init_philos(t_data *data)
 	int		i;
 	
 	data->philo = malloc(data->nb_philo * sizeof(t_philo));
-	data->fork = malloc(data->nb_philo * sizeof(pthread_mutex_t));
 	i = 0;
 	while (i < data->nb_philo)
 	{
@@ -60,6 +59,7 @@ static void	init_data(t_data *data, char **argv)
 	}
 	else
 		data->meal_limit = false;
+	data->fork = malloc(data->nb_philo * sizeof(pthread_mutex_t));
 }
 
 int	main(int argc, char **argv)
@@ -69,6 +69,7 @@ int	main(int argc, char **argv)
 	if (args_checker(argc, argv))
 		return (1);
 	init_data(&data, argv);
+	init_mutex(&data);
 	init_philos(&data);
 	lauch_philo(&data);
 	wait_philo(&data);

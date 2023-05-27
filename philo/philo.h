@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:43:41 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/05/26 17:13:52 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/05/26 22:01:20 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,18 @@
 # include <errno.h>
 # include <sys/time.h>
 
-# define FORK "has taken a fork"
-# define EAT "is eating"
-# define SLEEP "is sleeping"
-# define THINK "is thinking"
-# define DIED "died"
+# define FORK "has taken a fork 🍴"
+# define EAT "is eating 🍝"
+# define SLEEP "is sleeping 😴"
+# define THINK "is thinking 🤔"
+# define DIED "died 🪦"
 
 
 typedef struct	s_data
 {
 	struct s_philo	*philo;
 	struct timeval	start_time;
+	pthread_mutex_t	print;
 	pthread_mutex_t	*fork;
 	int				nb_philo;
 	int				time_die;
@@ -59,9 +60,9 @@ size_t	ft_strlen(const char *s);
 int		ft_isint(char *str);
 int		ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t n);
-void	init_fork(t_data *data);
+void	init_mutex(t_data *data);
 void	destroy_mutex(t_data *data);
 void	lauch_philo(t_data *data);
-long	timestamp(t_philo *philo);
+long	timestamp(struct timeval start);
 
 #endif
