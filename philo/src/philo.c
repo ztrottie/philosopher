@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:42:39 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/05/26 22:10:35 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/05/28 17:40:37 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,15 @@ static void	init_philos(t_data *data)
 	int		i;
 	
 	data->philo = malloc(data->nb_philo * sizeof(t_philo));
+	ft_bzero(data->philo, sizeof(t_philo *));
 	i = 0;
 	while (i < data->nb_philo)
 	{
 		data->philo[i].tt_die = data->time_die;
 		data->philo[i].nb = i + 1;
 		data->philo[i].data = data;
+		data->philo[i].died = false;
+		data->philo[i].nb_meal = data->nb_meal;
 		if (i == 0)
 			data->philo[i].left_fork = &data->fork[data->nb_philo - 1];
 		else
