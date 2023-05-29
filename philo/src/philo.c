@@ -6,17 +6,19 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:42:39 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/05/28 17:40:37 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/05/29 09:34:47 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-static void	init_philos(t_data *data)
+static int	init_philos(t_data *data)
 {
 	int		i;
-	
+
 	data->philo = malloc(data->nb_philo * sizeof(t_philo));
+	if (!data->philo)
+		return (1);
 	ft_bzero(data->philo, sizeof(t_philo *));
 	i = 0;
 	while (i < data->nb_philo)
@@ -33,9 +35,25 @@ static void	init_philos(t_data *data)
 		data->philo[i].right_fork = &data->fork[i];
 		i++;
 	}
+	return (0);
 }
 
-static void	wait_philo(t_data *data)
+static int	lauch_philo(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->nb_philo)
+	{
+		if (pthread_create(&data->philo[i].thread, NULL, \
+		&life_start, &data->philo[i]) != 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+static int	wait_philo(t_data *data)
 {
 	int	i;
 
@@ -43,9 +61,10 @@ static void	wait_philo(t_data *data)
 	while (i < data->nb_philo)
 	{
 		if (pthread_join(data->philo[i].thread, NULL) != 0)
-			return ;
+			return (1);
 		i++;
 	}
+	return (0);
 }
 
 static void	init_data(t_data *data, char **argv)
@@ -62,20 +81,24 @@ static void	init_data(t_data *data, char **argv)
 	}
 	else
 		data->meal_limit = false;
-	data->fork = malloc(data->nb_philo * sizeof(pthread_mutex_t));
 }
 
 int	main(int argc, char **argv)
 {
 	t_data	data;
-	
+
 	if (args_checker(argc, argv))
 		return (1);
 	init_data(&data, argv);
-	init_mutex(&data);
-	init_philos(&data);
-	lauch_philo(&data);
-	wait_philo(&data);
-	destroy_mutex(&data);
-	return (0);
+	if (init_mutex(&data))
+		return (free_all(&data), 1);
+	if (init_philos(&data))
+		return (free_all(&data), 1);
+	if (lauch_philo(&data))
+		return (free_all(&data), 1);
+	if (wait_philo(&data))
+		return (free_all(&data), 1);
+	if (destroy_mutex(&data))
+		return (free_all(&data), 1);
+	return (free_all(&data), 0);
 }

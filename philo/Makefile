@@ -11,7 +11,7 @@ SRCS		=	philo.c \
 				ft_isint.c \
 				utils.c \
 				ft_atoi.c \
-				fork.c \
+				mutex.c \
 				life.c \
 				time.c
 
