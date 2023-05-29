@@ -6,7 +6,10 @@ SRCS_DIR	=	src/
 CC			=	gcc
 CFLAGS		=	-Wextra -Werror -Wall
 
-SRCS		=	
+SRCS		=	main_bonus.c \
+				error_bonus.c \
+				ft_isint_bonus.c \
+				utils_bonus.c
 
 OBJS		=	$(addprefix ${BIN_DIR}, ${SRCS:.c=.o})
 
