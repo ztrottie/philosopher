@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 21:01:10 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/05/29 12:55:31 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/05/29 12:58:24 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	print_philo_state(t_philo *philo, char *state)
 {
 	pthread_mutex_lock(&philo->data->print);
 	if (philo->data->died == false || (philo->data->died && philo->died))
-		printf("%lld %d %s %lld\n", get_time(), philo->nb, state, philo->tt_die);
+		printf("%lld %d %s\n", get_time(), philo->nb, state);
 	pthread_mutex_unlock(&philo->data->print);
 }
 
