@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:42:39 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/05/29 09:34:47 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/05/29 12:44:47 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static int	init_philos(t_data *data)
 	data->philo = malloc(data->nb_philo * sizeof(t_philo));
 	if (!data->philo)
 		return (1);
-	ft_bzero(data->philo, sizeof(t_philo *));
 	i = 0;
 	while (i < data->nb_philo)
 	{

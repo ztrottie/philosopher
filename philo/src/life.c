@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 21:01:10 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/05/29 10:36:08 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/05/29 12:55:31 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,7 @@ void	*life_start(void *var)
 		smart_usleep(philo->data->time_eat, philo);
 	while (philo->data->died == false)
 	{
-		if (!philo->died)
-			print_philo_state(philo, THINK);
+		print_philo_state(philo, THINK);
 		if (!philo->died)
 			start_eat(philo);
 		if (philo->data->meal_limit == true)
