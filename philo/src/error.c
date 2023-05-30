@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:48:38 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/05/29 08:56:28 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/05/30 14:35:43 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,7 @@ int	args_checker(int argc, char **argv)
 		if (ft_isint(argv[i]))
 			return (write(2, "all arguments should be positive integers\n" \
 			, 42), 1);
+	if (ft_atoi(argv[1]) > 1000)
+		return (write(2, "slack sur les philo big\n", 25), 1);
 	return (0);
 }

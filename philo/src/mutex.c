@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 14:38:50 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/05/29 10:29:03 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/05/30 14:06:16 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	init_mutex(t_data *data)
 	ft_bzero(data->fork, sizeof(t_fork *));
 	while (i < data->nb_philo)
 	{
-		data->fork->use = false;
+		data->fork[i].use = false;
 		if (pthread_mutex_init(&data->fork[i].mutex, NULL) != 0)
 			return (1);
 		i++;
