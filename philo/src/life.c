@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 21:01:10 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/05/30 14:06:23 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/05/31 11:20:14 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static int	look_fork(t_philo *philo)
 
 static void	start_eat(t_philo *philo)
 {
+	usleep(1000);
 	while (!look_fork(philo) || philo->tt_die <= get_time())
 	{
 		if (philo->tt_die <= get_time())
