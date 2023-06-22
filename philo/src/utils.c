@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 10:47:24 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/05/29 09:27:12 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:05:23 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,17 @@ void	ft_bzero(void *s, size_t n)
 {
 	if (s)
 		memset(s, 0, n);
+}
+
+int	check_dead(t_philo *philo)
+{
+	int	dead;
+
+	pthread_mutex_lock(&philo->data->die);
+	if (philo->data->died)
+		dead = 1;
+	else
+		dead = 0;
+	pthread_mutex_unlock(&philo->data->die);
+	return (dead);
 }

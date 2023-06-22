@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:18:08 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/06/06 12:15:05 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/06/14 14:23:04 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ void	smart_usleep(t_time ms, t_philo *philo)
 	{
 		usleep((ms * 1000) * 0.9);
 		while (get_time() < ms + start)
-		{
 			usleep(150);
-		}
 	}
 }

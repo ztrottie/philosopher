@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 21:01:10 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/06/07 11:03:07 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:05:42 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	print_philo_state(t_philo *philo, char *state)
 {
 	pthread_mutex_lock(&philo->data->print);
-	if (philo->data->died == false || (philo->data->died && philo->died))
+	if (!check_dead(philo) || (check_dead(philo) && philo->died))
 		printf("%lld %d %s\n", get_time(), philo->nb, state);
 	pthread_mutex_unlock(&philo->data->print);
 }
@@ -27,7 +27,9 @@ void	philo_dead(t_philo *philo)
 	{
 		philo->died = true;
 		philo->data->died = true;
+		pthread_mutex_unlock(&philo->data->die);
 		print_philo_state(philo, DIED);
+		return ;
 	}
 	pthread_mutex_unlock(&philo->data->die);
 }
@@ -61,7 +63,7 @@ static void	start_eat(t_philo *philo)
 			philo_dead(philo);
 			return ;
 		}
-		if (philo->data->died)
+		if (check_dead(philo))
 			break ;
 		usleep(100);
 	}
@@ -73,9 +75,11 @@ static void	start_eat(t_philo *philo)
 	philo->tt_die = get_time() + philo->data->time_die;
 	smart_usleep(philo->data->time_eat, philo);
 	pthread_mutex_unlock(&philo->left_fork->mutex);
-	philo->left_fork->use = false;
 	pthread_mutex_unlock(&philo->right_fork->mutex);
+	pthread_mutex_lock(&philo->data->check_fork);
+	philo->left_fork->use = false;
 	philo->right_fork->use = false;
+	pthread_mutex_unlock(&philo->data->check_fork);
 }
 
 void	*life_start(void *var)
@@ -85,16 +89,16 @@ void	*life_start(void *var)
 	philo = (t_philo *)var;
 	if (philo->nb & 1)
 		smart_usleep(philo->data->time_eat, philo);
-	while (philo->data->died == false)
+	while (!check_dead(philo))
 	{
 		print_philo_state(philo, THINK);
-		if (!philo->died)
+		if (!check_dead(philo))
 			start_eat(philo);
 		if (philo->data->meal_limit == true)
 			philo->nb_meal--;
 		if (philo->data->meal_limit == true && philo->nb_meal == 0)
 			return (NULL);
-		if (!philo->died)
+		if (!check_dead(philo))
 			print_philo_state(philo, SLEEP);
 		smart_usleep(philo->data->time_sleep, philo);
 	}

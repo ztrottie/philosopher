@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:43:41 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/05/29 09:27:29 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:05:32 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ void	philo_dead(t_philo *philo);
 void	print_philo_state(t_philo *philo, char *state);
 void	*life_start(void *var);
 void	free_all(t_data *data);
+int		check_dead(t_philo *philo);
 
 #endif

@@ -4,7 +4,7 @@ BIN_DIR		=	bin/
 SRCS_DIR	=	src/
 
 CC			=	gcc
-CFLAGS		=	-Wextra -Werror -Wall
+CFLAGS		=	-Wextra -Werror -Wall -fsanitize=thread -g
 
 SRCS		=	philo.c \
 				error.c \
@@ -25,7 +25,7 @@ all: $(BIN_DIR) $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "philo compiling"
-	@$(CC) $(OBJS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 $(BIN_DIR):
 	@mkdir -p bin
