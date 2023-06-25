@@ -4,7 +4,7 @@ BIN_DIR		=	bin/
 SRCS_DIR	=	src/
 
 CC			=	gcc
-CFLAGS		=	-Wextra -Werror -Wall -fsanitize=thread -g
+CFLAGS		=	-Wextra -Werror -Wall
 
 SRCS		=	philo.c \
 				error.c \

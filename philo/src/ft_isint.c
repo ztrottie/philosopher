@@ -6,7 +6,7 @@
 /*   By: ztrottie <ztrottie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 10:38:16 by ztrottie          #+#    #+#             */
-/*   Updated: 2023/05/18 11:56:57 by ztrottie         ###   ########.fr       */
+/*   Updated: 2023/06/25 13:15:31 by ztrottie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,5 @@ int	ft_isint(char *str)
 		return (1);
 	if (len == 10 && ft_li_atoi(str) > INT_MAX)
 		return (1);
-	return (0);
+	return (0); 
 }
